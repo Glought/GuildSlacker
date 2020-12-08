@@ -1,4 +1,6 @@
 ### V3.6.1
+* Changed how I'm uploading the addon its now Github with bigwigs packer Packing and uploading to Curseforge
+  Ace3 libs will be the latest version.
 * "Greet Guild Members when they login." Works now.  
   When a Guild Member login it will greet them with a random Greet Message
   There are right now just 2 Diffrent Greets "Hi" and "Hello". I am working on a way for users to add more in the Options menu in a future version.
