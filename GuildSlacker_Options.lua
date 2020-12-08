@@ -1,0 +1,1 @@
+local GS = LibStub("AceAddon-3.0"):GetAddon("GuildSlacker")

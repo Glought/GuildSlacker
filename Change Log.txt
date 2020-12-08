@@ -1,7 +1,45 @@
+v 3.6.0
+    *Greet Guild Members when they login. works now.
+
+v 3.6.0
+     *Changed how Achievements from group party members in the same guild is handled.
+       *If your in a group with an fellow Guild member and he/she gets an Achievement the Grats message is sent to guild chat         instead of part/raid
+     *WoW Classic Support WIP!!!!!
+
+v 3.5.2
+    *Fixed Screenshot Date 
+    *Updated TOC to Patch 9.0.2
+
+v 3.5.1
+    *Added Russion Translation by Harrisan (Корвусы-СД
+    *Fixed issue with "Guild Welcome" not working 
+
+v 3.5.0
+    *Added Locale Support 
+     *Right now only English is Supported if you want to help translate it into your native language Check out the                   *"Localization" tab on the GuildSlacker Curseforge Page or Click Here
+     * https://www.curseforge.com/wow/addons/guild-slacker/localization
+
+V 3.4.1
+    *Fixed some deprecated Api I missed.
+
+V 3.4
+    *Updated TOC to Patch 9.0.1.
+    *Updated to the latest stable Libs.
+    *Disabled all Lvl dings past lvl 60,When future expansions raise the max level it will be simple for me to enabled it again.
+    *Fixed issues related to deprecated API.
+    *Fixed Issues related to the Options Menu. 
+
+V 3.3
+    *Updated TOC to Patch 8.2.
+    *Fix Spelling issue.
+    *Update to the latest stable Libs.
+    *Added the ability to customize the messages in the option menu.
+    *Added levels 110 and 120 ding messages.
+
 v 3.2
-  *Updated TOC to Patch 8.0
-  *Fixed the issue where the incorrect date is displayed in chat when screenshot is taken.
-  *Update to the latest stable Libs
+      *Updated TOC to Patch 8.0
+      *Fixed the issue where the incorrect date is displayed in chat when screenshot is taken.
+      *Update to the latest stable Libs
 
 v 3.1
   *Added date and time when screenshot is taken.

@@ -1,13 +1,16 @@
-## Interface: 80000
-## Title: GuildSlacker |cff008000by Submann, Managed by Glought
+## Interface: 90002
+## Globe: check-classic
+## Title: GuildSlacker |cff008000by Submann,Glought
 ## Author: Glought
-## Version: 3.2
+## Version: 3.6.0
 ## Notes: Allows you to be a guild slacker, it will do gratz, welcome, take picture and other stuff for you.
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: GuildSlackerDB
 ## X-credits:Submann - Kul Tiras - EU
 
+
+
 GuildSlackerEmbeds.xml
-localization.lua
+Locale\Locales.xml
 GuildSlacker.lua
