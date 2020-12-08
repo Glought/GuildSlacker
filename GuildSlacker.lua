@@ -649,19 +649,6 @@ GSoptions = {
                         GS.db.global.GS_DINGS["60"] = value
                     end
                 },
-                DingMessage7 = {
-                    name = L["GS_DingMessage15_name"],
-                    desc = L["GS_DingMessage15_desc"],
-                    order = 15,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_DINGS["other"]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_DINGS["other"] = value
-                    end
-                }
             }
         },
         GSGreetMessages = {
@@ -759,10 +746,10 @@ local defaults = {
         ["60"] = "Ding!  (60) ",
         ["*"] = "Ding! (other) ",
         },
-        GS_DING_OTHER = "DING! ",
         GS_GREETS = {
             [1] = "Hi ",
-            [2] = "Hello "
+            [2] = "Hello ",
+            ["*"] = "Hey "
         }
     }
 }
@@ -1007,7 +994,7 @@ function GS:OnUpdate()
                     elseif GS_WhatEvent == "JoinGuild" then
                         GS:DoJoinGuild()
                     elseif GS_WhatEvent == "GreetMembers" then
-                        GS:DoGreetMemeber()
+                        GS:DoGreetMember()
                     else
                         print(L["GS_ERROR1"])
                         print(L["GS_ERROR2"])
@@ -1110,7 +1097,7 @@ function GS:DoJoinGuild()
     end
 end
 
-function GS:DoGreetMemeber()
+function GS:DoGreetMember()
     if (GS.db.global.GS_GreetGuildMembers) then
         GS_Random = math.random(1, 2)
         if GS_PlayerName ~= GS_NameComeOnline then

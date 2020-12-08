@@ -186,10 +186,10 @@ L["GS_DingMessage6_desc"] = "Welcome Message 6 of 7 used when player reached lvl
 
 -- L["GS_DingMessage14_name"] = "Ding Message 14 ()"
 -- L["GS_DingMessage14_desc"] = "Welcome Message 14 of 15 used when player reached lvl 10."
----------------------------------------------------------------------------------------
 
-L["GS_DingMessage15_name"] = "Ding Message 7 (other)"
-L["GS_DingMessage15_desc"] = "Welcome Message 7 of 7 used when player reached levels inbetween the others above 11,43,etc.'"
+-- L["GS_DingMessage15_name"] = "Ding Message 7 (other)"
+-- L["GS_DingMessage15_desc"] = "Welcome Message 7 of 7 used when player reached levels inbetween the others above 11,43,etc.'"
+---------------------------------------------------------------------------------------------------------------------
 
 L["GS_RaidWarningGuildJoined"] = "A new member have joind the guild."
 L["GS_RaidMessage_WhisperFrom"] = "[Whisper from:]"

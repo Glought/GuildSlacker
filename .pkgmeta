@@ -1,0 +1,6 @@
+package-as: Guild_Slacker-@project-version@
+enable-nolib-creation: no
+
+manual-changelog:
+  filename: ChangeLog.txt
+  markup-type: markdown

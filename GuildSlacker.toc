@@ -1,16 +1,22 @@
+#@retail@
 ## Interface: 90002
+#@end-retail@
+#@non-retail@
+# ## Interface: 11305
+#@end-non-retail@
 ## Globe: check-classic
 ## Title: GuildSlacker |cff008000by Submann,Glought
 ## Author: Glought
-## Version: 3.6.0
+## Version: 3.6.1
 ## Notes: Allows you to be a guild slacker, it will do gratz, welcome, take picture and other stuff for you.
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: GuildSlackerDB
-## X-credits:Submann - Kul Tiras - EU
+## X-Curse-Project-ID: 28027
+## X-credits:Submann - Kul Tiras - EU , Glought
 
-
-
+#Libraries
 GuildSlackerEmbeds.xml
+
 Locale\Locales.xml
 GuildSlacker.lua
