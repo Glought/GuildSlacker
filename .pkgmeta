@@ -1,4 +1,4 @@
-package-as: Guild_Slacker-@project-version@
+package-as: GuildSlacker
 enable-nolib-creation: no
 
 
