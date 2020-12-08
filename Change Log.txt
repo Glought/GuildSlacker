@@ -1,4 +1,4 @@
-v 3.6.0
+v 3.6.1
     *Greet Guild Members when they login. works now.
 
 v 3.6.0
