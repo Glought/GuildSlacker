@@ -747,9 +747,8 @@ local defaults = {
         ["*"] = "Ding! (other) ",
         },
         GS_GREETS = {
-            [1] = "Hi ",
-            [2] = "Hello ",
-            ["*"] = "Hey "
+            [1] = "Hi",
+            [2] = "Hello",
         }
     }
 }
@@ -1098,27 +1097,34 @@ function GS:DoJoinGuild()
 end
 
 function GS:DoGreetMember()
-    if (GS.db.global.GS_GreetGuildMembers) then
-        GS_Random = math.random(1, 2)
-        if GS_PlayerName ~= GS_NameComeOnline then
-            if (GS_Random <= 1) then
-                SendChatMessage(GS.db.global.GS_Greets[GS_Random], "GUILD")
-            elseif (GS_Random >= 2) then
-                SendChatMEssage(GS.db.global.GS_Greets[GS_Random] .. " " .. GS_NameComeOnline, "GUILD")
-            else
-                print(L["GS_ERROR1"])
-                print(L["GS_ERROR2"])
-                print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
-                print(L["GS_ERROR4"] .. "000006")
-            end
-            GS_LastMessage = GetTime()
-            GS_Random = nil
-            GS_NameComeOnline = nil
+  if (GS.db.global.GS_GreetGuildMembers) then
+    GS_Random = math.random(1,#GS.db.global.GS_GREETS)
+     if GS_PlayerName ~= GS_NameComeOnline then
+      if (GS.db.global.GS_GreetGuildMembersSayName)then
+        if(GS_Random <= #GS.db.global.GS_GREETS) then
+          SendChatMessage(GS.db.global.GS_GREETS[GS_Random] .." ".. GS_NameComeOnline, "GUILD")
+        else
+          print(L["GS_ERROR1"])
+          print(L["GS_ERROR2"])
+          print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
+          print(L["GS_ERROR4"] .. "000006")
         end
+      else
+        if (GS_Random <= #GS.db.global.GS_GREETS) then
+          SendChatMessage(GS.db.global.GS_GREETS[GS_Random], "GUILD")
+        else
+          print(L["GS_ERROR1"])
+          print(L["GS_ERROR2"])
+          print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
+          print(L["GS_ERROR4"] .. "000007")
+        end
+      end
+      GS_LastMessage = GetTime()
+      GS_Random = nil
+      GS_NameComeOnline = nil
     end
+  end
 end
-
-
 
 -- ************************* * * * * * * * * * * *************************
 -- ************************* * * * * * * * * * * *************************

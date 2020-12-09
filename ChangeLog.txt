@@ -1,5 +1,5 @@
 ### V3.6.1
-* Changed how I'm uploading the addon its now Github with bigwigs packer Packing and uploading to Curseforge
+* Changed how I'm uploading the addon its now Github with bigwigs packer for Packing and uploading to Curseforge
   Ace3 libs will be the latest version.
 * "Greet Guild Members when they login." Works now.  
   When a Guild Member login it will greet them with a random Greet Message
@@ -21,7 +21,7 @@
 * Updated TOC to Patch 9.0.2
 
 ### V3.5.1
-* Added Russion Translation by Harrisan (Корвусы-СД
+* Added Russion Translation by Harrisan (Корвусы-СД)
 * Fixed issue with "Guild Welcome" not working 
 
 ### V3.5.0
