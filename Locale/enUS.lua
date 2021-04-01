@@ -60,6 +60,9 @@ L["GS_GreetGuildMembers_desc"] = "Greets guild members when they login(Default =
 L["GS_SayGuildMembersNameAtEndOfGreet_name"] = "Say Guild member's name at the end of Greet?"
 L["GS_SayGuildMembersNameAtEndOfGreet_desc"] = "If enabled it will add the Guild Member's name at the end of greet aka 'Hi Name' (Default = disabled)"
 
+L["GS_LimitGratsToCurrentExpansion_name"] = "Limit Grats to current expansion"
+L["GS_LimitGratsToCurrentExpansion_desc"] = "When enabled GuildSlacker will only send grats for achievements from the current expansion (Default = disabled)"
+
 --Customize Gratz Messages----------------------------------------------------------------
 L["GS_GSGratzMessages_name"] = "Customize Grats messages"
 

@@ -1,3 +1,10 @@
+### V3.7.0
+* updated TOC to Patch 9.0.5
+* Added the ability to limit Grats to the current expansion achievements.
+* When the Setting "Limit Grats to current expansion" is enabled only achievements from the current expansion will trigger a gratz message
+  All other achievements (bfa,legion,basic lvl achievements,1000 quest,etc) will not trigger a gratz message.
+
+
 ### V3.6.1
 * Changed how I'm uploading the addon its now Github with bigwigs packer for Packing and uploading to Curseforge
   Ace3 libs will be the latest version.

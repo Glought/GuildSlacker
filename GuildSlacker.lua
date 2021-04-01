@@ -30,6 +30,21 @@ local LG = LibStub("LibGuild-1.0")
 
 local Current_DB_Version = 1.0
 
+local currentExpansionCatagoryIDs = {15422, 15428, 15429, 15430, 15436, 15438, 15439, 15440, 15441, 15442}
+
+StaticPopupDialogs["RELOAD_REQUIRED"] = {
+  text = "A reload is required do you want to reload now?",
+  button1 = "Yes",
+  button2 = "No",
+  OnAccept = function()
+      ReloadUI()
+  end,
+  timeout = 0,
+  whileDead = true,
+  hideOnEscape = true,
+  preferredIndex = 3,  
+}
+
 -- ************************* * * * * * * * * * * *************************
 -- ************************* * * * * * * * * * * *************************
 -- ******* * * * * * Here is the option for GuildSlacker * * * * * *******
@@ -220,6 +235,19 @@ GSoptions = {
                     end,
                     set = function(self, value)
                         GS.db.global.GS_GreetGuildMembersSayName = value
+                    end
+                },
+                LimitGratsToCurrentExpansion = {
+                    name = L["GS_LimitGratsToCurrentExpansion_name"],
+                    desc = L["GS_LimitGratsToCurrentExpansion_desc"],
+                    order = 14,
+                    width = "full",
+                    type = "toggle",
+                    get = function()
+                        return GS.db.global.GS_LimitGratsToCurrentExpansion
+                    end,
+                    set = function(self, value)
+                        GS.db.global.GS_LimitGratsToCurrentExpansion = value
                     end
                 }
             }
@@ -648,7 +676,7 @@ GSoptions = {
                     set = function(self, value)
                         GS.db.global.GS_DINGS["60"] = value
                     end
-                },
+                }
             }
         },
         GSGreetMessages = {
@@ -682,12 +710,12 @@ GSoptions = {
                     set = function(self, value)
                         GS.db.global.GS_GREETS[2] = value
                     end
-                },
+                }
             }
         }
     }
 }
-    
+
 local defaults = {
     global = {
         GS_DB_Version = Current_DB_Version,
@@ -704,6 +732,7 @@ local defaults = {
         GS_DoTheWhisper = false,
         GS_GreetGuildMembers = false,
         GS_GreetGuildMembersSayName = false,
+        GS_LimitGratsToCurrentExpansion = false,
         GS_Version = GetAddOnMetadata("GuildSlacker", "Version"),
         --Grats
         GS_GRATZ = {
@@ -738,21 +767,20 @@ local defaults = {
         },
         --Ding
         GS_DINGS = {
-        ["10"] = "DING! (10) ",
-        ["20"] = "Ding! (20) ",
-        ["30"] = "Ding! (30)  ",
-        ["40"] = "Ding! (40) ",
-        ["50"] = "Ding! (50) ",
-        ["60"] = "Ding!  (60) ",
-        ["*"] = "Ding! (other) ",
+            ["10"] = "DING! (10) ",
+            ["20"] = "Ding! (20) ",
+            ["30"] = "Ding! (30)  ",
+            ["40"] = "Ding! (40) ",
+            ["50"] = "Ding! (50) ",
+            ["60"] = "Ding!  (60) ",
+            ["*"] = "Ding! (other) "
         },
         GS_GREETS = {
             [1] = "Hi",
-            [2] = "Hello",
+            [2] = "Hello"
         }
     }
 }
-
 
 -- ************************* * * * * * * * * * * *************************
 -- ************************* * * * * * * * * * * *************************
@@ -771,10 +799,9 @@ end
 
 function GS:OnEnable()
     print(L["GS_LOAD1"] .. GS.db.global.GS_Version .. L["GS_LOAD2"])
-    GS:RegisterEvent("CHAT_MSG_ACHIEVEMENT", "OnAchievement")
-     -- Fires when a nearby character earns an achievement.
-    GS:RegisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT", "OnGuildAchievement")
-     --Fires when a member of the player's guild earns an achievement.
+    
+    GS:RegisterEvent("CHAT_MSG_ACHIEVEMENT", "OnAchievementStart") -- Fires when a nearby character earns an achievement.
+    GS:RegisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT", "OnGuildAchievementStart")--Fires when a member of the player's guild earns an achievement.
     GS:RegisterEvent("CHAT_MSG_SYSTEM", "OnChatSystem") -- Fires when a system message is received.
     GS:RegisterEvent("PLAYER_LEVEL_UP", "OnPlayerLevelUp") -- Fires when the player gain a level
     GS:RegisterEvent("CHAT_MSG_WHISPER", "OnWhisper") -- Fires when someone whisper to you.
@@ -789,6 +816,38 @@ function GS:OnDisable()
     GS:unregisterEvent("PLAYER_LEVEL_UP")
     GS:unregisterEvent("CHAT_MSG_WHISPER")
     GS:unregisterEvent("CHAT_MSG_BN_WHISPER")
+end
+
+function GS:OnAchievementStart(event, arg1, arg2)
+    if (GS.db.global.GS_LimitGratsToCurrentExpansion) then
+        var1 = {strsplit(":", arg1, 2)}
+        var2 = {strsplit(":Player", var1[2])}
+        achievementID = var2[1]
+
+        for i, line in ipairs(currentExpansionCatagoryIDs) do
+            if line == GetAchievementCategory(achievementID) then
+                GS:OnAchievement(event, arg1, arg2)
+            end
+        end
+    else
+        GS:OnAchievement(event, arg1, arg2)
+    end
+end
+
+function GS:OnGuildAchievementStart(event, arg1, arg2)
+    if (GS.db.global.GS_LimitGratsToCurrentExpansion) then
+        var1 = {strsplit(":", arg1, 2)}
+        var2 = {strsplit(":Player", var1[2])}
+        achievementID = var2[1]
+
+        for i, line in ipairs(currentExpansionCatagoryIDs) do
+            if line == GetAchievementCategory(achievementID) then
+                GS:OnGuildAchievement(event, arg1, arg2)
+            end
+        end
+    else
+        GS:OnGuildAchievement(event, arg1, arg2)
+    end
 end
 
 function GS:OnAchievement(event, arg1, arg2)
@@ -830,7 +889,7 @@ function GS:OnGuildAchievement(event, arg1, arg2)
         GS_WhatEvent = "Achievement"
         GS_TimeDelay = GetTime()
         GS_RandomDelay = math.random(1, 2)
-         --5
+        --5
         GS_Loop = "Go"
     end
 end
@@ -861,7 +920,6 @@ function GS:OnChatSystem(event, arg1)
         end
     end
 end
-
 
 function GS:OnPlayerLevelUp(event, arg1)
     GS_TimeDingDelay = GetTime()
@@ -1097,33 +1155,33 @@ function GS:DoJoinGuild()
 end
 
 function GS:DoGreetMember()
-  if (GS.db.global.GS_GreetGuildMembers) then
-    GS_Random = math.random(1,#GS.db.global.GS_GREETS)
-     if GS_PlayerName ~= GS_NameComeOnline then
-      if (GS.db.global.GS_GreetGuildMembersSayName)then
-        if(GS_Random <= #GS.db.global.GS_GREETS) then
-          SendChatMessage(GS.db.global.GS_GREETS[GS_Random] .." ".. GS_NameComeOnline, "GUILD")
-        else
-          print(L["GS_ERROR1"])
-          print(L["GS_ERROR2"])
-          print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
-          print(L["GS_ERROR4"] .. "000006")
+    if (GS.db.global.GS_GreetGuildMembers) then
+        GS_Random = math.random(1, #GS.db.global.GS_GREETS)
+        if GS_PlayerName ~= GS_NameComeOnline then
+            if (GS.db.global.GS_GreetGuildMembersSayName) then
+                if (GS_Random <= #GS.db.global.GS_GREETS) then
+                    SendChatMessage(GS.db.global.GS_GREETS[GS_Random] .. " " .. GS_NameComeOnline, "GUILD")
+                else
+                    print(L["GS_ERROR1"])
+                    print(L["GS_ERROR2"])
+                    print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
+                    print(L["GS_ERROR4"] .. "000006")
+                end
+            else
+                if (GS_Random <= #GS.db.global.GS_GREETS) then
+                    SendChatMessage(GS.db.global.GS_GREETS[GS_Random], "GUILD")
+                else
+                    print(L["GS_ERROR1"])
+                    print(L["GS_ERROR2"])
+                    print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
+                    print(L["GS_ERROR4"] .. "000007")
+                end
+            end
+            GS_LastMessage = GetTime()
+            GS_Random = nil
+            GS_NameComeOnline = nil
         end
-      else
-        if (GS_Random <= #GS.db.global.GS_GREETS) then
-          SendChatMessage(GS.db.global.GS_GREETS[GS_Random], "GUILD")
-        else
-          print(L["GS_ERROR1"])
-          print(L["GS_ERROR2"])
-          print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
-          print(L["GS_ERROR4"] .. "000007")
-        end
-      end
-      GS_LastMessage = GetTime()
-      GS_Random = nil
-      GS_NameComeOnline = nil
     end
-  end
 end
 
 -- ************************* * * * * * * * * * * *************************
@@ -1136,8 +1194,8 @@ function GS:Level(GS_NewLevel)
     -- Do we say ding in guild chat ?
     if (GS.db.global.GS_DingOnLevel) then
         -- Wait with the ding so we don't sound like a robot
-            SendChatMessage(GS.db.global.GS_DINGS[GS_NewLevel] .. GS_NewLevel, "GUILD")
-       
+        SendChatMessage(GS.db.global.GS_DINGS[GS_NewLevel] .. GS_NewLevel, "GUILD")
+
         -- Do we take a Picture when we ding ?
         if (GS.db.global.GS_PicOnLevel) then
             -- Make a note in chat so we on Picture can see what level we gain
