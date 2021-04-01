@@ -1,8 +1,13 @@
+### V3.7.1
+* Made "Limit Grats to current expansion" setting hidden in classic since well the shadowlands hasn't been breached and Sylvanas stands in her throne room
+in the Undercity :) aka no point for the setting in classic.
+
+
 ### V3.7.0
 * updated TOC to Patch 9.0.5
 * Added the ability to limit Grats to the current expansion achievements.
 * When the Setting "Limit Grats to current expansion" is enabled only achievements from the current expansion will trigger a gratz message
-  All other achievements (bfa,legion,basic lvl achievements,1000 quest,etc) will not trigger a gratz message.
+* All other achievements (bfa,legion,basic lvl achievements,1000 quest,etc) will not trigger a gratz message.
 
 
 ### V3.6.1

@@ -33,16 +33,16 @@ local Current_DB_Version = 1.0
 local currentExpansionCatagoryIDs = {15422, 15428, 15429, 15430, 15436, 15438, 15439, 15440, 15441, 15442}
 
 StaticPopupDialogs["RELOAD_REQUIRED"] = {
-  text = "A reload is required do you want to reload now?",
-  button1 = "Yes",
-  button2 = "No",
-  OnAccept = function()
-      ReloadUI()
-  end,
-  timeout = 0,
-  whileDead = true,
-  hideOnEscape = true,
-  preferredIndex = 3,  
+    text = "A reload is required do you want to reload now?",
+    button1 = "Yes",
+    button2 = "No",
+    OnAccept = function()
+        ReloadUI()
+    end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3
 }
 
 -- ************************* * * * * * * * * * * *************************
@@ -243,6 +243,13 @@ GSoptions = {
                     order = 14,
                     width = "full",
                     type = "toggle",
+                    hidden = function()
+                        if (isClassic) then
+                            return true
+                        else
+                            return false
+                        end
+                    end,
                     get = function()
                         return GS.db.global.GS_LimitGratsToCurrentExpansion
                     end,
@@ -799,9 +806,10 @@ end
 
 function GS:OnEnable()
     print(L["GS_LOAD1"] .. GS.db.global.GS_Version .. L["GS_LOAD2"])
-    
+
     GS:RegisterEvent("CHAT_MSG_ACHIEVEMENT", "OnAchievementStart") -- Fires when a nearby character earns an achievement.
-    GS:RegisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT", "OnGuildAchievementStart")--Fires when a member of the player's guild earns an achievement.
+    GS:RegisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT", "OnGuildAchievementStart")
+    --Fires when a member of the player's guild earns an achievement.
     GS:RegisterEvent("CHAT_MSG_SYSTEM", "OnChatSystem") -- Fires when a system message is received.
     GS:RegisterEvent("PLAYER_LEVEL_UP", "OnPlayerLevelUp") -- Fires when the player gain a level
     GS:RegisterEvent("CHAT_MSG_WHISPER", "OnWhisper") -- Fires when someone whisper to you.
