@@ -224,19 +224,6 @@ GSoptions = {
                         GS.db.global.GS_GreetGuildMembers = value
                     end
                 },
-                SayGuildMembersNameAtEndOfGreet = {
-                    name = L["GS_SayGuildMembersNameAtEndOfGreet_name"],
-                    desc = L["GS_SayGuildMembersNameAtEndOfGreet_desc"],
-                    order = 13.1,
-                    width = "full",
-                    type = "toggle",
-                    get = function()
-                        return GS.db.global.GS_GreetGuildMembersSayName
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GreetGuildMembersSayName = value
-                    end
-                },
                 LimitGratsToCurrentExpansion = {
                     name = L["GS_LimitGratsToCurrentExpansion_name"],
                     desc = L["GS_LimitGratsToCurrentExpansion_desc"],
@@ -265,199 +252,45 @@ GSoptions = {
             width = "double",
             type = "group",
             args = {
-                GratzMessage1 = {
-                    name = L["GS_GratzMessage1_name"],
-                    desc = L["GS_GratzMessage1_desc"],
+                AddMessageButton = {
+                    name = L["GS_Add_name"],
+                    desc = L["GS_Add_desc"],
+                    order = 0,
+                    width = 1,
+                    type = "execute",
+                    func = function()
+                        GS.db.global.GS_GratzMessage_Count = GS.db.global.GS_GratzMessage_Count + 1
+                        GS:AddMessage("Gratz", GS.db.global.GS_GratzMessage_Count)
+                    end
+                },
+                RemoveMessageButton = {
+                    name = L["GS_Remove_name"],
+                    desc = L["GS_Remove_desc"],
+                    order = 0.1,
+                    width = 1,
+                    type = "execute",
+                    func = function()
+                        GS:RemoveMessage("Gratz", GS.db.global.GS_GratzMessage_Count)
+
+                        GS.db.global.GS_GratzMessage_Count = GS.db.global.GS_GratzMessage_Count - 1
+                        GS:AddMessage("Gratz", GS.db.global.GS_GratzMessage_Count) --refresh table
+                        if (GS.db.global.GS_GratzMessage_Count == -1) then
+                            GS.db.global.GS_GratzMessage_Count = 0
+                        end
+                    end
+                },
+                ["*"] = {
+                    name = "dummy",
+                    desc = "dummy",
                     order = 1,
                     width = "double",
+                    guiHidden = true,
                     type = "input",
                     get = function()
-                        return GS.db.global.GS_GRATZ[1]
+                        --return GS.db.global.GS_GRATZ[15]
                     end,
                     set = function(self, value)
-                        GS.db.global.GS_GRATZ[1] = value
-                    end
-                },
-                GratzMessage2 = {
-                    name = L["GS_GratzMessage2_name"],
-                    desc = L["GS_GratzMessage2_desc"],
-                    order = 2,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[2]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[2] = value
-                    end
-                },
-                GratzMessage3 = {
-                    name = L["GS_GratzMessage3_name"],
-                    desc = L["GS_GratzMessage3_desc"],
-                    order = 3,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[3]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[3] = value
-                    end
-                },
-                GratzMessage4 = {
-                    name = L["GS_GratzMessage4_name"],
-                    desc = L["GS_GratzMessage4_desc"],
-                    order = 4,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[4]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[4] = value
-                    end
-                },
-                GratzMessage5 = {
-                    name = L["GS_GratzMessage5_name"],
-                    desc = L["GS_GratzMessage5_desc"],
-                    order = 5,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[5]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[5] = value
-                    end
-                },
-                GratzMessage6 = {
-                    name = L["GS_GratzMessage6_name"],
-                    desc = L["GS_GratzMessage6_desc"],
-                    order = 6,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[6]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[6] = value
-                    end
-                },
-                GratzMessage7 = {
-                    name = L["GS_GratzMessage7_name"],
-                    desc = L["GS_GratzMessage7_desc"],
-                    order = 7,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[7]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[7] = value
-                    end
-                },
-                GratzMessage8 = {
-                    name = L["GS_GratzMessage8_name"],
-                    desc = L["GS_GratzMessage8_desc"],
-                    order = 8,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[8]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[8] = value
-                    end
-                },
-                GratzMessage9 = {
-                    name = L["GS_GratzMessage9_name"],
-                    desc = L["GS_GratzMessage9_desc"],
-                    order = 9,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[9]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[9] = value
-                    end
-                },
-                GratzMessage10 = {
-                    name = L["GS_GratzMessage10_name"],
-                    desc = L["GS_GratzMessage10_desc"],
-                    order = 10,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[10]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[10] = value
-                    end
-                },
-                GratzMessage11 = {
-                    name = L["GS_GratzMessage11_name"],
-                    desc = L["GS_GratzMessage11_desc"],
-                    order = 11,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[11]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[11] = value
-                    end
-                },
-                GratzMessage12 = {
-                    name = L["GS_GratzMessage12_name"],
-                    desc = L["GS_GratzMessage12_desc"],
-                    order = 12,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[12]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[12] = value
-                    end
-                },
-                GratzMessage13 = {
-                    name = L["GS_GratzMessage13_name"],
-                    desc = L["GS_GratzMessage13_desc"],
-                    order = 13,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[13]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[13] = value
-                    end
-                },
-                GratzMessage14 = {
-                    name = L["GS_GratzMessage14_name"],
-                    desc = L["GS_GratzMessage14_desc"],
-                    order = 14,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[14]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[14] = value
-                    end
-                },
-                GratzMessage15 = {
-                    name = L["GS_GratzMessage15_name"],
-                    desc = L["GS_GratzMessage15_desc"],
-                    order = 15,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GRATZ[15]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GRATZ[15] = value
+                        --GS.db.global.GS_GRATZ[15] = value
                     end
                 }
             }
@@ -468,140 +301,100 @@ GSoptions = {
             width = "double",
             type = "group",
             args = {
-                WelcomeMessage1 = {
-                    name = L["GS_WelcomeMessage1_name"],
-                    desc = L["GS_WelcomeMessage1_desc"],
+                AddMessageButton = {
+                    name = L["GS_Add_name"],
+                    desc = L["GS_Add_desc"],
+                    order = 0,
+                    width = 1,
+                    type = "execute",
+                    func = function()
+                        GS.db.global.GS_WelcomeMessage_Count = GS.db.global.GS_WelcomeMessage_Count + 1
+                        GS:AddMessage("Welcome", GS.db.global.GS_WelcomeMessage_Count)
+                    end
+                },
+                RemoveMessageButton = {
+                    name = L["GS_Remove_name"],
+                    desc = L["GS_Remove_desc"],
+                    order = 0.1,
+                    width = 1,
+                    type = "execute",
+                    func = function()
+                        GS:RemoveMessage("Welcome", GS.db.global.GS_WelcomeMessage_Count)
+
+                        GS.db.global.GS_WelcomeMessage_Count = GS.db.global.GS_WelcomeMessage_Count - 1
+                        GS:AddMessage("Welcome", GS.db.global.GS_WelcomeMessage_Count) --Refresh table
+                        if (GS.db.global.GS_WelcomeMessage_Count == -1) then
+                            GS.db.global.GS_WelcomeMessage_Count = 0
+                        end
+                    end
+                },
+                ["*"] = {
+                    name = "dummy",
+                    desc = "dummy",
                     order = 1,
                     width = "double",
+                    guiHidden = true,
                     type = "input",
                     get = function()
-                        return GS.db.global.GS_WELCOME[1]
+                        --return GS.db.global.GS_WELCOME[1]
                     end,
                     set = function(self, value)
-                        GS.db.global.GS_WELCOME[1] = value
+                        --  GS.db.global.GS_WELCOME[1] = value
+                    end
+                }
+            }
+        },
+        GSGreetMessages = {
+            order = 16,
+            name = L["GS_GreetMessages_name"],
+            width = "double",
+            type = "group",
+            args = {
+                AddMessageButton = {
+                    name = L["GS_Add_name"],
+                    desc = L["GS_Add_desc"],
+                    order = 0,
+                    width = 1,
+                    type = "execute",
+                    func = function()
+                        GS.db.global.GS_GreetMessage_Count = GS.db.global.GS_GreetMessage_Count + 1
+                        GS:AddMessage("Greet", GS.db.global.GS_GreetMessage_Count)
                     end
                 },
-                WelcomeMessage2 = {
-                    name = L["GS_WelcomeMessage2_name"],
-                    desc = L["GS_WelcomeMessage2_desc"],
-                    order = 2,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_WELCOME[2]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_WELCOME[2] = value
+                RemoveMessageButton = {
+                    name = L["GS_Remove_name"],
+                    desc = L["GS_Remove_desc"],
+                    order = 0.1,
+                    width = 1,
+                    type = "execute",
+                    func = function()
+                        GS:RemoveMessage("Greet", GS.db.global.GS_GreetMessage_Count)
+
+                        GS.db.global.GS_GreetMessage_Count = GS.db.global.GS_GreetMessage_Count - 1
+                        GS:AddMessage("Greet", GS.db.global.GS_GreetMessage_Count) --Refresh table
+                        if (GS.db.global.GS_GreetMessage_Count == -1) then
+                            GS.db.global.GS_GreetMessage_Count = 0
+                        end
                     end
                 },
-                WelcomeMessage3 = {
-                    name = L["GS_WelcomeMessage3_name"],
-                    desc = L["GS_WelcomeMessage3_desc"],
-                    order = 3,
+                ["*"] = {
+                    name = "dummy",
+                    desc = "dummy",
+                    order = 1,
                     width = "double",
+                    guiHidden = true,
                     type = "input",
                     get = function()
-                        return GS.db.global.GS_WELCOME[3]
+                        --return GS.db.global.GS_GRATZ[15]
                     end,
                     set = function(self, value)
-                        GS.db.global.GS_WELCOME[3] = value
-                    end
-                },
-                WelcomeMessage4 = {
-                    name = L["GS_WelcomeMessage4_name"],
-                    desc = L["GS_WelcomeMessage4_desc"],
-                    order = 4,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_WELCOME[4]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_WELCOME[4] = value
-                    end
-                },
-                WelcomeMessage5 = {
-                    name = L["GS_WelcomeMessage5_name"],
-                    desc = L["GS_WelcomeMessage5_desc"],
-                    order = 5,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_WELCOME[5]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_WELCOME[5] = value
-                    end
-                },
-                WelcomeMessage6 = {
-                    name = L["GS_WelcomeMessage6_name"],
-                    desc = L["GS_WelcomeMessage6_desc"],
-                    order = 6,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_WELCOME[6]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_WELCOME[6] = value
-                    end
-                },
-                WelcomeMessage7 = {
-                    name = L["GS_WelcomeMessage7_name"],
-                    desc = L["GS_WelcomeMessage7_desc"],
-                    order = 7,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_WELCOME[7]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_WELCOME[7] = value
-                    end
-                },
-                WelcomeMessage8 = {
-                    name = L["GS_WelcomeMessage8_name"],
-                    desc = L["GS_WelcomeMessage8_desc"],
-                    order = 8,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_WELCOME[8]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_WELCOME[8] = value
-                    end
-                },
-                WelcomeMessage9 = {
-                    name = L["GS_WelcomeMessage9_name"],
-                    desc = L["GS_WelcomeMessage9_desc"],
-                    order = 9,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_WELCOME[9]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_WELCOME[9] = value
-                    end
-                },
-                WelcomeMessage10 = {
-                    name = L["GS_WelcomeMessage10_name"],
-                    desc = L["GS_WelcomeMessage10_desc"],
-                    order = 10,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_WELCOME[10]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_WELCOME[10] = value
+                        --GS.db.global.GS_GRATZ[15] = value
                     end
                 }
             }
         },
         GSDingMessages = {
-            order = 16,
+            order = 17,
             name = L["GS_GSDingMessages_name"],
             width = "double",
             type = "group",
@@ -685,40 +478,6 @@ GSoptions = {
                     end
                 }
             }
-        },
-        GSGreetMessages = {
-            order = 17,
-            name = L["GS_GreetMessages_name"],
-            width = "double",
-            type = "group",
-            args = {
-                GreetMessage1 = {
-                    name = L["GS_GreetMessages1_name"],
-                    desc = L["GS_GreetMessages1_desc"],
-                    order = 1,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GREETS[1]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GREETS[1] = value
-                    end
-                },
-                GreetMessage2 = {
-                    name = L["GS_GreetMessages2_name"],
-                    desc = L["GS_GreetMessages2_desc"],
-                    order = 2,
-                    width = "double",
-                    type = "input",
-                    get = function()
-                        return GS.db.global.GS_GREETS[2]
-                    end,
-                    set = function(self, value)
-                        GS.db.global.GS_GREETS[2] = value
-                    end
-                }
-            }
         }
     }
 }
@@ -741,6 +500,9 @@ local defaults = {
         GS_GreetGuildMembersSayName = false,
         GS_LimitGratsToCurrentExpansion = false,
         GS_Version = GetAddOnMetadata("GuildSlacker", "Version"),
+        GS_GratzMessage_Count = 5,
+        GS_WelcomeMessage_Count = 10,
+        GS_GreetMessage_Count = 3,
         --Grats
         GS_GRATZ = {
             "Gz",
@@ -748,16 +510,11 @@ local defaults = {
             "Congratulation",
             "Gratz",
             "Gratz",
-            "Gratz",
-            "Gratz",
-            "Gratz",
-            "Gratz",
-            "Gratz",
-            "Gratz",
-            "Gratz",
-            "Gratz",
-            "Gratz",
-            "Gratz"
+            ["*"] = "Gratz"
+        },
+        GS_GRATZ_WITH_NAME = {
+            [5] = true,
+            ["*"] = false
         },
         --Welcome
         GS_WELCOME = {
@@ -772,19 +529,32 @@ local defaults = {
             "About time you joined us ", -- Have the name in the end of the welcome
             "Welcome to the guild " -- Have the name in the end of the welcome
         },
+        GS_WELCOME_WITH_NAME = {
+            [6] = true,
+            [7] = true,
+            [8] = true,
+            [9] = true,
+            [10] = true,
+            ["*"] = false
+        },
         --Ding
         GS_DINGS = {
-            ["10"] = "DING! (10) ",
-            ["20"] = "Ding! (20) ",
-            ["30"] = "Ding! (30)  ",
-            ["40"] = "Ding! (40) ",
-            ["50"] = "Ding! (50) ",
-            ["60"] = "Ding!  (60) ",
-            ["*"] = "Ding! (other) "
+            ["10"] = "DING! ",
+            ["20"] = "Ding! ",
+            ["30"] = "Ding! ",
+            ["40"] = "Ding! ",
+            ["50"] = "Ding! ",
+            ["60"] = "Ding! ",
+            ["*"] = "Ding!  "
         },
         GS_GREETS = {
             [1] = "Hi",
-            [2] = "Hello"
+            [2] = "Hello",
+            ["*"] = "Hi"
+        },
+        GS_GREETS_WITH_NAME = {
+            [3] = true,
+            ["*"] = false
         }
     }
 }
@@ -800,8 +570,13 @@ function GS:OnInitialize()
     AceConfig:RegisterOptionsTable("GS", GSoptions, {"gssettings", "gsset"})
     AceConfig:RegisterOptionsTable("GS Customize Grats sayings", GSoptions.args.GSGratzMessages)
     AceConfig:RegisterOptionsTable("GS Customize Welcome sayings", GSoptions.args.GSWelcomeMessages)
+    AceConfig:RegisterOptionsTable("GS Customize Greet sayings", GSoptions.args.GSGreetMessages)
     AceConfig:RegisterOptionsTable("GS Customize Ding sayings", GSoptions.args.GSDingMessages)
     AceConfigDialog:AddToBlizOptions("GS", "Guild Slacker")
+
+    GS:AddMessage("Gratz", GS.db.global.GS_GratzMessage_Count) -- Fills the Gratz Message Table.
+    GS:AddMessage("Welcome", GS.db.global.GS_WelcomeMessage_Count) -- Fills the Welcome Message Table.
+    GS:AddMessage("Greet", GS.db.global.GS_GreetMessage_Count) --Fills the Greet Message Table.
 end
 
 function GS:OnEnable()
@@ -863,7 +638,7 @@ function GS:OnAchievement(event, arg1, arg2)
         GS:OnGuildAchievement(event, arg1, arg2)
     else
         local pname, _ = strsplit("-", arg2)
-        local GS_AchievementBy = pname
+        GS_AchievementBy = pname
         -- Make sure thats not our self
         if (GS_PlayerName ~= GS_AchievementBy) then
             -- Are we in a raid or a party ?
@@ -891,9 +666,9 @@ end
 
 function GS:OnGuildAchievement(event, arg1, arg2)
     local pname, _ = strsplit("-", arg2)
-    local GS_GuildAchievementBy = pname
+    GS_AchievementBy = pname
     -- Make sure that it's not our self
-    if (GS_PlayerName ~= GS_GuildAchievementBy) then
+    if (GS_PlayerName ~= GS_AchievementBy) then
         GS_WhatEvent = "Achievement"
         GS_TimeDelay = GetTime()
         GS_RandomDelay = math.random(1, 2)
@@ -1088,8 +863,12 @@ end
 
 function GS:DoAchievement()
     if (GS.db.global.GS_GratzInGuild) then
-        GS_Random = math.random(1, 15)
-        SendChatMessage(GS.db.global.GS_GRATZ[GS_Random], "GUILD")
+        GS_Random = math.random(1, GS.db.global.GS_GratzMessage_Count)
+        if (GS.db.global.GS_GRATZ_WITH_NAME[GS_Random] == true) then
+            SendChatMessage(GS.db.global.GS_GRATZ[GS_Random] .. " " .. GS_AchievementBy, "GUILD")
+        elseif (GS.db.global.GS_GRATZ_WITH_NAME[GS_Random] == nil) then
+            SendChatMessage(GS.db.global.GS_GRATZ[GS_Random], "GUILD")
+        end
     -- print (L["GS_ERROR1"]);
     -- print (L["GS_ERROR2"]);
     -- print (L["GS_ERROR3"] .. GS.db.global.GS_Version);
@@ -1097,6 +876,7 @@ function GS:DoAchievement()
     end
     GS_LastMessage = GetTime()
     GS_Random = nil
+    GS_AchievementBy = nil
 end
 
 -- ************************* * * * * * * * * * * *************************
@@ -1119,8 +899,12 @@ function GS:DoPartyAndRaid()
             print(L["GS_ERROR4"] .. "000003")
         end
         -- Make a random number and do the gratz
-        GS_Random = math.random(1, 15)
-        SendChatMessage(GS.db.global.GS_GRATZ[GS_Random], GS_GratzWhere)
+        GS_Random = math.random(1, GS.db.global.GS_GratzMessage_Count)
+       if (GS.db.global.GS_GRATZ_WITH_NAME[GS_Random] == true) then
+            SendChatMessage(GS.db.global.GS_GRATZ[GS_Random] .. " " .. GS_AchievementBy, GS_GratzWhere)
+       elseif (GS.db.global.GS_GRATZ_WITH_NAME[GS_Random] == nil) then
+            SendChatMessage(GS.db.global.GS_GRATZ[GS_Random], GS_GratzWhere)
+        end
     -- print (L["GS_ERROR1"]);
     -- print (L["GS_ERROR2"]);
     -- print (L["GS_ERROR3"] .. GS.db.global.GS_Version);
@@ -1129,6 +913,8 @@ function GS:DoPartyAndRaid()
     -- Reset so we don't get errors next time
     GS_LastMessage = GetTime()
     GS_Random = nil
+    GS_AchievementBy = nil
+
 end
 
 -- ************************* * * * * * * * * * * *************************
@@ -1139,12 +925,12 @@ end
 
 function GS:DoJoinGuild()
     if (GS.db.global.GS_WelcomeOnNew) then
-        GS_Random = math.random(1, 10)
+        GS_Random = math.random(1, GS.db.global.GS_WelcomeMessage_Count)
         if GS_PlayerName ~= GS_NameJoinGuild then
-            if (GS_Random <= 5) then
-                SendChatMessage(GS.db.global.GS_WELCOME[GS_Random], "GUILD")
-            elseif (GS_Random >= 6) then
+            if (GS.db.global.GS_WELCOME_WITH_NAME[GS_Random] == true) then
                 SendChatMessage(GS.db.global.GS_WELCOME[GS_Random] .. " " .. GS_NameJoinGuild, "GUILD")
+            elseif (GS.db.global.GS_WELCOME_WITH_NAME[GS_Random] == nil) then
+                SendChatMessage(GS.db.global.GS_WELCOME[GS_Random], "GUILD")
             else
                 print(L["GS_ERROR1"])
                 print(L["GS_ERROR2"])
@@ -1164,26 +950,17 @@ end
 
 function GS:DoGreetMember()
     if (GS.db.global.GS_GreetGuildMembers) then
-        GS_Random = math.random(1, #GS.db.global.GS_GREETS)
+        GS_Random = math.random(1, GS.db.global.GS_GreetMessage_Count)
         if GS_PlayerName ~= GS_NameComeOnline then
-            if (GS.db.global.GS_GreetGuildMembersSayName) then
-                if (GS_Random <= #GS.db.global.GS_GREETS) then
-                    SendChatMessage(GS.db.global.GS_GREETS[GS_Random] .. " " .. GS_NameComeOnline, "GUILD")
-                else
-                    print(L["GS_ERROR1"])
-                    print(L["GS_ERROR2"])
-                    print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
-                    print(L["GS_ERROR4"] .. "000006")
-                end
+            if (GS.db.global.GS_GREETS_WITH_NAME[GS_Random] == true) then
+                SendChatMessage(GS.db.global.GS_GREETS[GS_Random] .. " " .. GS_NameComeOnline, "GUILD")      
+            elseif (GS.db.global.GS_GREETS_WITH_NAME[GS_Random] == nil) then
+                SendChatMessage(GS.db.global.GS_GREETS[GS_Random], "GUILD")    
             else
-                if (GS_Random <= #GS.db.global.GS_GREETS) then
-                    SendChatMessage(GS.db.global.GS_GREETS[GS_Random], "GUILD")
-                else
-                    print(L["GS_ERROR1"])
-                    print(L["GS_ERROR2"])
-                    print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
-                    print(L["GS_ERROR4"] .. "000007")
-                end
+                print(L["GS_ERROR1"])
+                print(L["GS_ERROR2"])
+                print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
+                print(L["GS_ERROR4"] .. "000006")
             end
             GS_LastMessage = GetTime()
             GS_Random = nil
@@ -1231,5 +1008,179 @@ function GS:DoWhisper(arg1, arg2)
             ChatTypeInfo["RAID_WARNING"]
         )
         RaidNotice_AddMessage(RaidBossEmoteFrame, arg1, ChatTypeInfo["RAID_WARNING"])
+    end
+end
+
+function GS:AddMessage(GS_Type, GS_Count)
+    if (GS_Type == "Gratz") then
+        local _GratzOptionTable =
+            setmetatable(
+            {},
+            {
+                __newindex = function(table, key, value)
+                    GSoptions.args.GSGratzMessages.args[key] = value
+                end
+            }
+        )
+
+        for i = 1, GS_Count do
+            _GratzOptionTable["GratzMessage" .. i] = {
+                name = L["Gratz Message "] .. i,
+                desc = L["Gratz Message "] ..
+                    i .. L[" of "] .. GS.db.global.GS_GratzMessage_Count .. L[" chosen randomly."],
+                order = i,
+                width = 1.4,
+                guiHidden = false,
+                type = "input",
+                get = function()
+                    return GS.db.global.GS_GRATZ[i]
+                end,
+                set = function(self, value)
+                    GS.db.global.GS_GRATZ[i] = value
+                end
+            }
+            _GratzOptionTable["GratzMessageWithNameToggle" .. i] = {
+                name = L["GS_WithName_name"],
+                desc = L["GS_WithName_desc"],
+                order = i,
+                width = 0.7,
+                guiHidden = false,
+                type = "toggle",
+                get = function()
+                    return GS.db.global.GS_GRATZ_WITH_NAME[i]
+                end,
+                set = function(self, value)
+                    GS.db.global.GS_GRATZ_WITH_NAME[i] = value
+                end
+            }
+        end
+    elseif (GS_Type == "Welcome") then
+        local _WelcomeOptionTable =
+            setmetatable(
+            {},
+            {
+                __newindex = function(table, key, value)
+                    GSoptions.args.GSWelcomeMessages.args[key] = value
+                end
+            }
+        )
+
+        for i = 1, GS_Count do
+            _WelcomeOptionTable["WelcomeMessage" .. i] = {
+                name = L["Welcome Message "] .. i,
+                desc = L["Welcome Message "] ..
+                    i .. L[" of "] .. GS.db.global.GS_WelcomeMessage_Count .. L[" chosen randomly."],
+                order = i,
+                width = 1.4,
+                guiHidden = false,
+                type = "input",
+                get = function()
+                    return GS.db.global.GS_WELCOME[i]
+                end,
+                set = function(self, value)
+                    GS.db.global.GS_WELCOME[i] = value
+                end
+            }
+            _WelcomeOptionTable["WelcomeMessageWithNameToggle" .. i] = {
+                -- With name toggle
+                name = L["GS_WithName_name"],
+                desc = L["GS_WithName_desc"],
+                order = i,
+                width = 0.7,
+                guiHidden = false,
+                type = "toggle",
+                get = function()
+                    return GS.db.global.GS_WELCOME_WITH_NAME[i]
+                end,
+                set = function(self, value)
+                    GS.db.global.GS_WELCOME_WITH_NAME[i] = value
+                end
+            }
+        end
+    elseif (GS_Type == "Greet") then
+        local _GreetOptionTable =
+            setmetatable(
+            {},
+            {
+                __newindex = function(table, key, value)
+                    GSoptions.args.GSGreetMessages.args[key] = value
+                end
+            }
+        )
+
+        for i = 1, GS_Count do
+            _GreetOptionTable["GreetMessage" .. i] = {
+                name = L["Greet Message "] .. i,
+                desc = L["Greet Message "] ..
+                    i .. L[" of "] .. GS.db.global.GS_GreetMessage_Count .. L[" chosen randomly."],
+                order = i,
+                width = 1.4,
+                guiHidden = false,
+                type = "input",
+                get = function()
+                    return GS.db.global.GS_GREETS[i]
+                end,
+                set = function(self, value)
+                    GS.db.global.GS_GREETS[i] = value
+                end
+            }
+            _GreetOptionTable["GreetMessageWithNameToggle" .. i] = {
+                -- With name toggle
+                name = L["GS_WithName_name"],
+                desc = L["GS_WithName_desc"],
+                order = i,
+                width = 0.7,
+                guiHidden = false,
+                type = "toggle",
+                get = function()
+                    return GS.db.global.GS_GREETS_WITH_NAME[i]
+                end,
+                set = function(self, value)
+                    GS.db.global.GS_GREETS_WITH_NAME[i] = value
+                end
+            }
+        end
+    else
+    end
+end
+
+function GS:RemoveMessage(GS_Type, GS_Count)
+    if (GS_Type == "Gratz") then
+        local _GratzOptionTable =
+            setmetatable(
+            {},
+            {
+                __newindex = function(table, key, value)
+                    GSoptions.args.GSGratzMessages.args[key] = value
+                end
+            }
+        )
+        _GratzOptionTable["GratzMessage" .. GS_Count] = nil
+        _GratzOptionTable["GratzMessageWithNameToggle" .. GS_Count] = nil
+    elseif (GS_Type == "Welcome") then
+        local _WelcomeOptionTable =
+            setmetatable(
+            {},
+            {
+                __newindex = function(table, key, value)
+                    GSoptions.args.GSWelcomeMessages.args[key] = value
+                end
+            }
+        )
+        _WelcomeOptionTable["WelcomeMessage" .. GS_Count] = nil
+        _WelcomeOptionTable["WelcomeMessageWithNameToggle" .. GS_Count] = nil
+    elseif (GS_Type == "Greet") then
+        local _GreetOptionTable =
+            setmetatable(
+            {},
+            {
+                __newindex = function(table, key, value)
+                    GSoptions.args.GSGreetMessages.args[key] = value
+                end
+            }
+        )
+        _GreetOptionTable["GreetMessage" .. GS_Count] = nil
+        _GreetOptionTable["GreetMessageWithNameToggle" .. GS_Count] = nil
+    else
     end
 end

@@ -1,3 +1,21 @@
+### V3.8.0
+* Updated TOC to Patch 9.1.5
+* Customizing Gratz,Welcome,and Greet Messages are now dynamic you can now add or remove how many you want.
+* The add button will add 1 to the bottom of the list.
+* The Remove button will remove 1 from the bottom up of the list.
+* Added "With name?" checkbox that will add the person's character name to the end of the message.
+
+* Changed the layout a little bit Moved the "Customize Ding aka leveled Messages" to below "Customize Greets Messages".
+
+* Removed "Say Guild Member's at the end of greet" from "Main Settings" since you can now enable it individually in the Customize Greet,Welcome,and Gratz menu.
+
+* Default amount for each is:
+* Greets:5
+* Welcome:10 (6 to 10 have "With Name" enabled by default)
+* Greet:3
+
+* Fixed issue with gratz only triggering once.
+
 ### V3.7.1
 * Made "Limit Grats to current expansion" setting hidden in classic since well the shadowlands hasn't been breached and Sylvanas stands in her throne room
 in the Undercity :) aka no point for the setting in classic.

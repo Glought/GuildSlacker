@@ -63,86 +63,33 @@ L["GS_SayGuildMembersNameAtEndOfGreet_desc"] = "If enabled it will add the Guild
 L["GS_LimitGratsToCurrentExpansion_name"] = "Limit Grats to current expansion"
 L["GS_LimitGratsToCurrentExpansion_desc"] = "When enabled GuildSlacker will only send grats for achievements from the current expansion (Default = disabled)"
 
+
+-- Add and remove buttons
+
+L["GS_Add_name"] = "Add"
+L["GS_Add_desc"] = "Add a new Message to the list"
+
+L["GS_Remove_name"] = "Remove"
+L["GS_Remove_desc"] = "Removes a Message from the list from the bottom up"
+
 --Customize Gratz Messages----------------------------------------------------------------
 L["GS_GSGratzMessages_name"] = "Customize Grats messages"
 
-L["GS_GratzMessage1_name"] = "Gratz Message 1"
-L["GS_GratzMessage1_desc"] = "Grats Message 1 of 15 choosen randomly."
+L["Gratz Message "] = true
 
-L["GS_GratzMessage2_name"] = "Gratz Message 2"
-L["GS_GratzMessage2_desc"] = "Grats Message 2 of 15 choosen randomly."
-
-L["GS_GratzMessage3_name"] = "Gratz Message 3"
-L["GS_GratzMessage3_desc"] = "Grats Message 3 of 15 choosen randomly."
-
-L["GS_GratzMessage4_name"] = "Gratz Message 4"
-L["GS_GratzMessage4_desc"] = "Grats Message 4 of 15 choosen randomly."
-
-L["GS_GratzMessage5_name"] = "Gratz Message 5"
-L["GS_GratzMessage5_desc"] = "Grats Message 5 of 15 choosen randomly."
-
-L["GS_GratzMessage6_name"] = "Gratz Message 6"
-L["GS_GratzMessage6_desc"] = "Grats Message 6 of 15 choosen randomly."
-
-L["GS_GratzMessage7_name"] = "Gratz Message 7"
-L["GS_GratzMessage7_desc"] = "Grats Message 7 of 15 choosen randomly."
-
-L["GS_GratzMessage8_name"] = "Gratz Message 8"
-L["GS_GratzMessage8_desc"] = "Grats Message 8 of 15 choosen randomly."
-
-L["GS_GratzMessage9_name"] = "Gratz Message 9"
-L["GS_GratzMessage9_desc"] = "Grats Message 9 of 15 choosen randomly."
-
-L["GS_GratzMessage10_name"] = "Gratz Message 10"
-L["GS_GratzMessage10_desc"] = "Grats Message 10 of 15 choosen randomly."
-
-L["GS_GratzMessage11_name"] = "Gratz Message 11"
-L["GS_GratzMessage11_desc"] = "Grats Message 11 of 15 choosen randomly."
-
-L["GS_GratzMessage12_name"] = "Gratz Message 12"
-L["GS_GratzMessage12_desc"] = "Grats Message 12 of 15 choosen randomly."
-
-L["GS_GratzMessage13_name"] = "Gratz Message 13"
-L["GS_GratzMessage13_desc"] = "Grats Message 13 of 15 choosen randomly."
-
-L["GS_GratzMessage14_name"] = "Gratz Message 14"
-L["GS_GratzMessage14_desc"] = "Grats Message 14 of 15 choosen randomly."
-
-L["GS_GratzMessage15_name"] = "Gratz Message 15"
-L["GS_GratzMessage15_desc"] = "Grats Message 15 of 15 choosen randomly."
 
 --Customize Welcome Messages----------------------------------------------------
 L["GS_GSWelcomeMessages_name"] = "Customize Welcome messages."
 
+L["Welcome Message "] = true
+L[" of "] = true
+L[" chosen randomly."] = true
+
 L["GS_WelcomeMessage1_name"] = "Welcome Message 1"
 L["GS_WelcomeMessage1_desc"] = "Welcome Message 1 of 10 choosen randomly."
 
-L["GS_WelcomeMessage2_name"] = "Welcome Message 2"
-L["GS_WelcomeMessage2_desc"] = "Welcome Message 2 of 10 choosen randomly."
-
-L["GS_WelcomeMessage3_name"] = "Welcome Message 3"
-L["GS_WelcomeMessage3_desc"] = "Welcome Message 3 of 10 choosen randomly."
-
-L["GS_WelcomeMessage4_name"] = "Welcome Message 4"
-L["GS_WelcomeMessage4_desc"] = "Welcome Message 4 of 10 choosen randomly."
-
-L["GS_WelcomeMessage5_name"] = "Welcome Message 5"
-L["GS_WelcomeMessage5_desc"] = "Welcome Message 5 of 10 choosen randomly."
-
-L["GS_WelcomeMessage6_name"] = "Welcome Message 6 (Joined players name added to the end)"
-L["GS_WelcomeMessage6_desc"] = "Welcome Message 6 of 10 choosen randomly."
-
-L["GS_WelcomeMessage7_name"] = "Welcome Message 7 (Joined players name added to the end)"
-L["GS_WelcomeMessage7_desc"] = "Welcome Message 7 of 10 choosen randomly."
-
-L["GS_WelcomeMessage8_name"] = "Welcome Message 8 (Joined players name added to the end)"
-L["GS_WelcomeMessage8_desc"] = "Welcome Message 8 of 10 choosen randomly."
-
-L["GS_WelcomeMessage9_name"] = "Welcome Message 9 (Joined players name added to the end)"
-L["GS_WelcomeMessage9_desc"] = "Welcome Message 9 of 10 choosen randomly."
-
-L["GS_WelcomeMessage10_name"] = "Welcome Message 10 (Joined players name added to the end)"
-L["GS_WelcomeMessage10_desc"] = "Welcome Message 10 of 10 choosen randomly."
+L["GS_WithName_name"] = "With name?"
+L["GS_WithName_desc"] = "When enabled the person's name will be added to the end of the message."
 
 --Customize Ding aka Leveled Messages-----------------------------------------------
 L["GS_GSDingMessages_name"] = "Customize Ding aka leveled messages."
@@ -198,7 +145,4 @@ L["GS_RaidWarningGuildJoined"] = "A new member have joind the guild."
 L["GS_RaidMessage_WhisperFrom"] = "[Whisper from:]"
 
 L["GS_GreetMessages_name"] = "Customize Greet Messages"
-L["GS_GreetMessages1_name"] = "Greet Message 1"
-L["GS_GreetMessages1_desc"] = "Greet Message 1 of 2"
-L["GS_GreetMessages2_name"] = "Greet Message 2"
-L["GS_GreetMessages2_desc"] = "Greet Message 2 of 2"
+L["Greet Message "] = true
