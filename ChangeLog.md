@@ -1,3 +1,8 @@
+### V3.8.1
+* Updated TOC to Patch 10.0.5
+* Updated "Limit Grats to current expansion" achievements category ids to Dragonflight.
+
+
 ### V3.8.0
 * Updated TOC to Patch 9.1.5
 * Customizing Gratz,Welcome,and Greet Messages are now dynamic you can now add or remove how many you want.

@@ -30,7 +30,7 @@ local LG = LibStub("LibGuild-1.0")
 
 local Current_DB_Version = 1.0
 
-local currentExpansionCatagoryIDs = {15422, 15428, 15429, 15430, 15436, 15438, 15439, 15440, 15441, 15442}
+local currentExpansionCatagoryIDs = {15455, 15465, 15467, 15468, 15466, 15478, 15462}
 
 StaticPopupDialogs["RELOAD_REQUIRED"] = {
     text = "A reload is required do you want to reload now?",
