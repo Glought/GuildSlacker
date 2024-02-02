@@ -32,6 +32,8 @@ local Current_DB_Version = 1.0
 
 local currentExpansionCatagoryIDs = {15455, 15465, 15467, 15468, 15466, 15478, 15462}
 
+local GS_Debug = false
+
 StaticPopupDialogs["RELOAD_REQUIRED"] = {
     text = "A reload is required do you want to reload now?",
     button1 = "Yes",
@@ -514,7 +516,7 @@ local defaults = {
         },
         GS_GRATZ_WITH_NAME = {
             [5] = true,
-            ["*"] = false
+            ["**"] = false
         },
         --Welcome
         GS_WELCOME = {
@@ -535,7 +537,7 @@ local defaults = {
             [8] = true,
             [9] = true,
             [10] = true,
-            ["*"] = false
+            ["**"] = false
         },
         --Ding
         GS_DINGS = {
@@ -554,7 +556,7 @@ local defaults = {
         },
         GS_GREETS_WITH_NAME = {
             [3] = true,
-            ["*"] = false
+            ["**"] = false
         }
     }
 }
@@ -864,15 +866,22 @@ end
 function GS:DoAchievement()
     if (GS.db.global.GS_GratzInGuild) then
         GS_Random = math.random(1, GS.db.global.GS_GratzMessage_Count)
-        if (GS.db.global.GS_GRATZ_WITH_NAME[GS_Random] == true) then
+        local GratzWithName = GS.db.global.GS_GRATZ_WITH_NAME[GS_Random]
+
+        if GratzWithName == true then
             SendChatMessage(GS.db.global.GS_GRATZ[GS_Random] .. " " .. GS_AchievementBy, "GUILD")
-        elseif (GS.db.global.GS_GRATZ_WITH_NAME[GS_Random] == nil) then
+        elseif GratzWithName == false or GratzWithName == nil then
             SendChatMessage(GS.db.global.GS_GRATZ[GS_Random], "GUILD")
+        else
+            print (L["GS_ERROR1"]);
+            print (L["GS_ERROR2"]);
+            print (L["GS_ERROR3"] .. GS.db.global.GS_Version);
+            print (L["GS_ERROR4"] .. "000002");
+            if GS_Debug then
+                 print("Grats With Name: " .. tostring(GratzWithName))
+                 print("GS_Random: " .. tostring(GS_Random))
+            end
         end
-    -- print (L["GS_ERROR1"]);
-    -- print (L["GS_ERROR2"]);
-    -- print (L["GS_ERROR3"] .. GS.db.global.GS_Version);
-    -- print (L["GS_ERROR4"] .. "000002");
     end
     GS_LastMessage = GetTime()
     GS_Random = nil
@@ -900,15 +909,21 @@ function GS:DoPartyAndRaid()
         end
         -- Make a random number and do the gratz
         GS_Random = math.random(1, GS.db.global.GS_GratzMessage_Count)
-       if (GS.db.global.GS_GRATZ_WITH_NAME[GS_Random] == true) then
+        local GratzWithName = GS.db.global.GS_GRATZ_WITH_NAME[GS_Random]
+       if GratzWithName == true then
             SendChatMessage(GS.db.global.GS_GRATZ[GS_Random] .. " " .. GS_AchievementBy, GS_GratzWhere)
-       elseif (GS.db.global.GS_GRATZ_WITH_NAME[GS_Random] == nil) then
+       elseif GratzWithName == false or GratzWithName == nil then
             SendChatMessage(GS.db.global.GS_GRATZ[GS_Random], GS_GratzWhere)
+        else
+            print (L["GS_ERROR1"]);
+            print (L["GS_ERROR2"]);
+            print (L["GS_ERROR3"] .. GS.db.global.GS_Version);
+            print (L["GS_ERROR4"].. "000004");
+            if GS_Debug then
+                 print("Grats With Name: " .. tostring(GratzWithName))
+                 print("GS_Random: " .. tostring(GS_Random))
+            end
         end
-    -- print (L["GS_ERROR1"]);
-    -- print (L["GS_ERROR2"]);
-    -- print (L["GS_ERROR3"] .. GS.db.global.GS_Version);
-    -- print (L["GS_ERROR4"].. "000004");
     end
     -- Reset so we don't get errors next time
     GS_LastMessage = GetTime()
@@ -926,16 +941,22 @@ end
 function GS:DoJoinGuild()
     if (GS.db.global.GS_WelcomeOnNew) then
         GS_Random = math.random(1, GS.db.global.GS_WelcomeMessage_Count)
+        local WelcomeWithName = GS.db.global.GS_WELCOME_WITH_NAME[GS_Random]
+        
         if GS_PlayerName ~= GS_NameJoinGuild then
-            if (GS.db.global.GS_WELCOME_WITH_NAME[GS_Random] == true) then
+            if WelcomeWithName == true then
                 SendChatMessage(GS.db.global.GS_WELCOME[GS_Random] .. " " .. GS_NameJoinGuild, "GUILD")
-            elseif (GS.db.global.GS_WELCOME_WITH_NAME[GS_Random] == nil) then
+            elseif WelcomeWithName == false or WelcomeWithName == nil then
                 SendChatMessage(GS.db.global.GS_WELCOME[GS_Random], "GUILD")
             else
                 print(L["GS_ERROR1"])
                 print(L["GS_ERROR2"])
                 print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
                 print(L["GS_ERROR4"] .. "000005")
+                if GS_Debug then
+                    print("Welcome With Name: " .. tostring(WelcomeWithName))
+                    print("GS_Random: " .. tostring(GS_Random))
+                end
             end
             GS_LastMessage = GetTime()
             GS_Random = nil
@@ -951,16 +972,22 @@ end
 function GS:DoGreetMember()
     if (GS.db.global.GS_GreetGuildMembers) then
         GS_Random = math.random(1, GS.db.global.GS_GreetMessage_Count)
+        local GreetsWithName = GS.db.global.GS_GREETS_WITH_NAME[GS_Random]
+
         if GS_PlayerName ~= GS_NameComeOnline then
-            if (GS.db.global.GS_GREETS_WITH_NAME[GS_Random] == true) then
+            if GreetsWithName == true then
                 SendChatMessage(GS.db.global.GS_GREETS[GS_Random] .. " " .. GS_NameComeOnline, "GUILD")      
-            elseif (GS.db.global.GS_GREETS_WITH_NAME[GS_Random] == nil) then
-                SendChatMessage(GS.db.global.GS_GREETS[GS_Random], "GUILD")    
+            elseif GreetsWithName == false or GreetsWithName == nil then
+                SendChatMessage(GS.db.global.GS_GREETS[GS_Random], "GUILD")
             else
                 print(L["GS_ERROR1"])
                 print(L["GS_ERROR2"])
                 print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
                 print(L["GS_ERROR4"] .. "000006")
+                if GS_Debug then
+                    print("Greets With Name: " .. tostring(greetWithname))
+                    print("GS_Random: " .. tostring(GS_Random))
+                end
             end
             GS_LastMessage = GetTime()
             GS_Random = nil

@@ -1,5 +1,5 @@
 #@retail@
-## Interface: 100005
+## Interface: 100200
 #@end-retail@
 #@non-retail@
 # ## Interface: 11305
@@ -7,7 +7,7 @@
 ## Globe: check-classic
 ## Title: GuildSlacker |cff008000by Submann,Glought
 ## Author: Glought
-## Version: 3.8.1
+## Version: 3.8.2
 ## Notes: Allows you to be a guild slacker, it will do gratz, welcome, take picture and other stuff for you.
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
