@@ -1,3 +1,8 @@
+### V3.8.2
+* Update TOC to Patch 10.2.0
+* Resolve error triggered by toggling 'With Name' option in Grats, Welcome, and Greets Messages
+  Previously, an issue arose when enabling and then disabling the 'With Name' during a session would result in a nil check error if that message was randomly selected. This was due to the value switching to 'false' (code was looking for nil not false), causing the error. This fix addresses this issue."
+
 ### V3.8.1
 * Updated TOC to Patch 10.0.5
 * Updated "Limit Grats to current expansion" achievements category ids to Dragonflight.
