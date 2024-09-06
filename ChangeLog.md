@@ -1,3 +1,8 @@
+### V3.8.3
+* Update TOC to Patch 11.0.0
+* Fixed issue with Deprecated API
+* Updated "Limit Grats to current expansion" achievements category ids to The War Within.
+
 ### V3.8.2
 * Update TOC to Patch 10.2.0
 * Resolve error triggered by toggling 'With Name' option in Grats, Welcome, and Greets Messages

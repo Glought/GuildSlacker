@@ -30,7 +30,7 @@ local LG = LibStub("LibGuild-1.0")
 
 local Current_DB_Version = 1.0
 
-local currentExpansionCatagoryIDs = {15455, 15465, 15467, 15468, 15466, 15478, 15462}
+local currentExpansionCatagoryIDs = {15506, 15521, 15523, 15524, 15526, 15530}
 
 local GS_Debug = false
 
@@ -501,7 +501,7 @@ local defaults = {
         GS_GreetGuildMembers = false,
         GS_GreetGuildMembersSayName = false,
         GS_LimitGratsToCurrentExpansion = false,
-        GS_Version = GetAddOnMetadata("GuildSlacker", "Version"),
+        GS_Version = C_AddOns.GetAddOnMetadata("GuildSlacker", "Version"),
         GS_GratzMessage_Count = 5,
         GS_WelcomeMessage_Count = 10,
         GS_GreetMessage_Count = 3,
