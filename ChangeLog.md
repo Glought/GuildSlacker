@@ -1,3 +1,6 @@
+### V3.8.4
+* Updated TOC to Patch 12.0.0
+
 ### V3.8.3
 * Update TOC to Patch 11.0.0
 * Fixed issue with Deprecated API
