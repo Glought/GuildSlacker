@@ -1,3 +1,9 @@
+### V3.8.5
+* Updated TOC to Patch 12.0.1
+* Updated "Limit Grats to current expansion" achievements category ids to Midnight.
+* Increased Customizable Ding messages to lvl 90.
+* Made some optimizations reducing CPU usage.
+
 ### V3.8.4
 * Updated TOC to Patch 12.0.0
 

@@ -30,7 +30,7 @@ local LG = LibStub("LibGuild-1.0")
 
 local Current_DB_Version = 1.0
 
-local currentExpansionCatagoryIDs = {15506, 15521, 15523, 15524, 15526, 15530}
+local currentExpansionCatagoryIDs = {15547, 15553, 15571, 15541, 15566, 15600} -- Quests, Eploration, Delves, Dungeons, Raids , Reputation
 
 local GS_Debug = false
 
@@ -478,6 +478,45 @@ GSoptions = {
                     set = function(self, value)
                         GS.db.global.GS_DINGS["60"] = value
                     end
+                },
+                DingMessage7 = {
+                    name = L["GS_DingMessage7_name"],
+                    desc = L["GS_DingMessage7_desc"],
+                    order = 7,
+                    width = "double",
+                    type = "input",
+                    get = function()
+                        return GS.db.global.GS_DINGS["70"]
+                    end,
+                    set = function(self, value)
+                        GS.db.global.GS_DINGS["70"] = value
+                    end
+                },
+                DingMessage8 = {
+                    name = L["GS_DingMessage8_name"],
+                    desc = L["GS_DingMessage8_desc"],
+                    order = 8,
+                    width = "double",
+                    type = "input",
+                    get = function()
+                        return GS.db.global.GS_DINGS["80"]
+                    end,
+                    set = function(self, value)
+                        GS.db.global.GS_DINGS["80"] = value
+                    end
+                },
+                DingMessage9 = {
+                    name = L["GS_DingMessage9_name"],
+                    desc = L["GS_DingMessage9_desc"],
+                    order = 9,
+                    width = "double",
+                    type = "input",
+                    get = function()
+                        return GS.db.global.GS_DINGS["90"]
+                    end,
+                    set = function(self, value)
+                        GS.db.global.GS_DINGS["90"] = value
+                    end
                 }
             }
         }
@@ -541,12 +580,15 @@ local defaults = {
         },
         --Ding
         GS_DINGS = {
-            ["10"] = "DING! ",
+            ["10"] = "Ding! ",
             ["20"] = "Ding! ",
             ["30"] = "Ding! ",
             ["40"] = "Ding! ",
             ["50"] = "Ding! ",
-            ["60"] = "Ding! ",
+            ["60"] = "Ding! ",  
+            ["70"] = "Ding! ",
+            ["80"] = "Ding! ",
+            ["90"] = "Ding! ",
             ["*"] = "Ding!  "
         },
         GS_GREETS = {
@@ -576,31 +618,42 @@ function GS:OnInitialize()
     AceConfig:RegisterOptionsTable("GS Customize Ding sayings", GSoptions.args.GSDingMessages)
     AceConfigDialog:AddToBlizOptions("GS", "Guild Slacker")
 
-    GS:AddMessage("Gratz", GS.db.global.GS_GratzMessage_Count) -- Fills the Gratz Message Table.
-    GS:AddMessage("Welcome", GS.db.global.GS_WelcomeMessage_Count) -- Fills the Welcome Message Table.
-    GS:AddMessage("Greet", GS.db.global.GS_GreetMessage_Count) --Fills the Greet Message Table.
+    self:AddMessage("Gratz", GS.db.global.GS_GratzMessage_Count) -- Fills the Gratz Message Table.
+    self:AddMessage("Welcome", GS.db.global.GS_WelcomeMessage_Count) -- Fills the Welcome Message Table.
+    self:AddMessage("Greet", GS.db.global.GS_GreetMessage_Count) --Fills the Greet Message Table.
 end
 
 function GS:OnEnable()
     print(L["GS_LOAD1"] .. GS.db.global.GS_Version .. L["GS_LOAD2"])
+    
+    self:RegisterEvent("CHAT_MSG_ACHIEVEMENT", "OnAchievementStart") -- Fires when a nearby character earns an achievement.
+    self:RegisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT", "OnGuildAchievementStart")
+    -- Fires when a member of the player's guild earns an achievement.
+    self:RegisterEvent("CHAT_MSG_SYSTEM", "OnChatSystem") -- Fires when a system message is received.
+    self:RegisterEvent("PLAYER_LEVEL_UP", "OnPlayerLevelUp") -- Fires when the player gain a level
+    self:RegisterEvent("CHAT_MSG_WHISPER", "OnWhisper") -- Fires when someone whisper to you.
+    self:RegisterEvent("CHAT_MSG_BN_WHISPER", "OnBNWhisper") -- Fires when someone with BattleNet ID whisper to you.
 
-    GS:RegisterEvent("CHAT_MSG_ACHIEVEMENT", "OnAchievementStart") -- Fires when a nearby character earns an achievement.
-    GS:RegisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT", "OnGuildAchievementStart")
-    --Fires when a member of the player's guild earns an achievement.
-    GS:RegisterEvent("CHAT_MSG_SYSTEM", "OnChatSystem") -- Fires when a system message is received.
-    GS:RegisterEvent("PLAYER_LEVEL_UP", "OnPlayerLevelUp") -- Fires when the player gain a level
-    GS:RegisterEvent("CHAT_MSG_WHISPER", "OnWhisper") -- Fires when someone whisper to you.
-    GS:RegisterEvent("CHAT_MSG_BN_WHISPER", "OnBNWhisper") -- Fires when someone with BattleNet ID whisper to you.
-    GS:ScheduleRepeatingTimer("OnUpdate", 0.01)
+    -- lower update frequency and keep ref so it can be cancelled on disable
+    self.updateTimer = self:ScheduleRepeatingTimer("OnUpdate", 0.2)
 end
 
 function GS:OnDisable()
-    GS:unregisterEvent("CHAT_MSG_ACHIEVEMENT")
-    GS:unregisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT")
-    GS:unregisterEvent("CHAT_MSG_SYSTEM")
-    GS:unregisterEvent("PLAYER_LEVEL_UP")
-    GS:unregisterEvent("CHAT_MSG_WHISPER")
-    GS:unregisterEvent("CHAT_MSG_BN_WHISPER")
+    self:UnregisterEvent("CHAT_MSG_ACHIEVEMENT")
+    self:UnregisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT")
+    self:UnregisterEvent("CHAT_MSG_SYSTEM")
+    self:UnregisterEvent("PLAYER_LEVEL_UP")
+    self:UnregisterEvent("CHAT_MSG_WHISPER")
+    self:UnregisterEvent("CHAT_MSG_BN_WHISPER")
+
+    -- Cancel the repeating timer if it exists
+    if self.updateTimer then
+        self:CancelTimer(self.updateTimer, true)
+        self.updateTimer = nil
+    end
+
+    -- fallback: cancel any remaining timers
+    self:CancelAllTimers()
 end
 
 function GS:OnAchievementStart(event, arg1, arg2)
@@ -611,11 +664,11 @@ function GS:OnAchievementStart(event, arg1, arg2)
 
         for i, line in ipairs(currentExpansionCatagoryIDs) do
             if line == GetAchievementCategory(achievementID) then
-                GS:OnAchievement(event, arg1, arg2)
+                self:OnAchievement(event, arg1, arg2)
             end
         end
     else
-        GS:OnAchievement(event, arg1, arg2)
+        self:OnAchievement(event, arg1, arg2)
     end
 end
 
@@ -627,26 +680,26 @@ function GS:OnGuildAchievementStart(event, arg1, arg2)
 
         for i, line in ipairs(currentExpansionCatagoryIDs) do
             if line == GetAchievementCategory(achievementID) then
-                GS:OnGuildAchievement(event, arg1, arg2)
+                self:OnGuildAchievement(event, arg1, arg2)
             end
         end
     else
-        GS:OnGuildAchievement(event, arg1, arg2)
+        self:OnGuildAchievement(event, arg1, arg2)
     end
 end
 
 function GS:OnAchievement(event, arg1, arg2)
     if (LG:HasMember(arg2)) and (GS_PlayerNameFull ~= arg2) then
-        GS:OnGuildAchievement(event, arg1, arg2)
+        self:OnGuildAchievement(event, arg1, arg2)
     else
         local pname, _ = strsplit("-", arg2)
         GS_AchievementBy = pname
         -- Make sure thats not our self
         if (GS_PlayerName ~= GS_AchievementBy) then
-            -- Are we in a raid or a party ?
-            if (GetNumGroupMembers() > 0) or (GetNumSubgroupMembers() > 0) then
+            -- Are we in a raid or a party ? (use modern helpers)
+            if IsInRaid() or IsInGroup() then
                 -- Is the player in our raid or party ?
-                if (UnitInRaid(GS_AchievementBy) ~= nil) or (UnitInParty(GS_AchievementBy) ~= nil) then
+                if UnitInRaid(GS_AchievementBy) or UnitInParty(GS_AchievementBy) then
                     GS_WhatEvent = "PartyAndRaid"
                     GS_TimeDelay = GetTime()
                     GS_RandomDelay = math.random(1, 5)
@@ -689,14 +742,13 @@ function GS:OnChatSystem(event, arg1)
             GS_WhatEvent = "JoinGuild"
             GS_TimeDelay = GetTime()
             GS_RandomDelay = math.random(1, 2)
-            --5
             GS_NameJoinGuild = var2[1]
             GS_Loop = "Go"
         end
     elseif (string.find(arg1, " " .. L["GS_had_come_online"])) then
         var = {strsplit(":", arg1)}
         var2 = {strsplit("|", var[2])}
-        if (GS_playerName ~= var2[1]) then
+        if (GS_PlayerName ~= var2[1]) then
             GS_WhatEvent = "GreetMembers"
             GS_TimeDelay = GetTime()
             GS_RandomDelay = math.random(1, 2)
@@ -714,12 +766,12 @@ end
 
 function GS:OnWhisper(event, arg1, arg2)
     GS_TimeDelay = GetTime()
-    GS:DoWhisper(arg1, arg2)
+    self:DoWhisper(arg1, arg2)
 end
 
 function GS:OnBNWhisper(event, arg1, arg2)
     GS_TimeDelay = GetTime()
-    GS:DoWhisper(arg1, arg2)
+    self:DoWhisper(arg1, arg2)
 end
 
 -- ************************* * * * * * * * * * * *************************
@@ -758,6 +810,13 @@ function GS:OnUpdate()
         GS_Loop = "Stop"
         GS_GetDingDelay = "Stop"
     end
+
+    -- Quick exit if nothing pending to save CPU
+    local dingActive = (type(GS_GetDingDelay) == "string" and GS_GetDingDelay:lower() == "go")
+    if GS_Loop ~= "Go" and GS_TakePic ~= "Go" and not dingActive then
+        return
+    end
+
     -- Take a picture if we are allowed
     if (GS_TakePic == "Go") then
         if isClassic then
@@ -792,7 +851,7 @@ function GS:OnUpdate()
     if (GS_GetDingDelay:lower() == "go") then
         if ((GetTime() - GS_TimeDingDelay) > GS.db.global.GS_DingDelay) then
             GS_GetDingDelay = "Stop"
-            GS:Level(GS_NewLevel)
+            self:Level(GS_NewLevel)
         end
     end
     -- Are we allowed to do this loop ?
@@ -830,13 +889,13 @@ function GS:OnUpdate()
                 if ((GetTime() - GS_TimeDelay) > (GS.db.global.GS_Delay + GS_RandomDelay)) then
                     -- All was ok, now we just have to send to the right function
                     if GS_WhatEvent == "Achievement" then
-                        GS:DoAchievement()
+                        self:DoAchievement()
                     elseif GS_WhatEvent == "PartyAndRaid" then
-                        GS:DoPartyAndRaid()
+                        self:DoPartyAndRaid()
                     elseif GS_WhatEvent == "JoinGuild" then
-                        GS:DoJoinGuild()
+                        self:DoJoinGuild()
                     elseif GS_WhatEvent == "GreetMembers" then
-                        GS:DoGreetMember()
+                        self:DoGreetMember()
                     else
                         print(L["GS_ERROR1"])
                         print(L["GS_ERROR2"])
@@ -896,10 +955,9 @@ end
 
 function GS:DoPartyAndRaid()
     if (GS.db.global.GS_GratzInGroup) then
-        -- Are we in raid or party ?
-        if (GetNumGroupMembers() > 0) then
+        if IsInRaid() then
             GS_GratzWhere = "RAID"
-        elseif (GetNumSubgroupMembers() > 0) then
+        elseif IsInGroup() then
             GS_GratzWhere = "PARTY"
         else
             print(L["GS_ERROR1"])
@@ -910,18 +968,18 @@ function GS:DoPartyAndRaid()
         -- Make a random number and do the gratz
         GS_Random = math.random(1, GS.db.global.GS_GratzMessage_Count)
         local GratzWithName = GS.db.global.GS_GRATZ_WITH_NAME[GS_Random]
-       if GratzWithName == true then
+        if GratzWithName == true then
             SendChatMessage(GS.db.global.GS_GRATZ[GS_Random] .. " " .. GS_AchievementBy, GS_GratzWhere)
-       elseif GratzWithName == false or GratzWithName == nil then
+        elseif GratzWithName == false or GratzWithName == nil then
             SendChatMessage(GS.db.global.GS_GRATZ[GS_Random], GS_GratzWhere)
         else
-            print (L["GS_ERROR1"]);
-            print (L["GS_ERROR2"]);
-            print (L["GS_ERROR3"] .. GS.db.global.GS_Version);
-            print (L["GS_ERROR4"].. "000004");
+            print(L["GS_ERROR1"])
+            print(L["GS_ERROR2"])
+            print(L["GS_ERROR3"] .. GS.db.global.GS_Version)
+            print(L["GS_ERROR4"] .. "000004")
             if GS_Debug then
-                 print("Grats With Name: " .. tostring(GratzWithName))
-                 print("GS_Random: " .. tostring(GS_Random))
+                print("Grats With Name: " .. tostring(GratzWithName))
+                print("GS_Random: " .. tostring(GS_Random))
             end
         end
     end
@@ -929,7 +987,6 @@ function GS:DoPartyAndRaid()
     GS_LastMessage = GetTime()
     GS_Random = nil
     GS_AchievementBy = nil
-
 end
 
 -- ************************* * * * * * * * * * * *************************

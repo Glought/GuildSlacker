@@ -95,32 +95,33 @@ L["GS_WithName_desc"] = "When enabled the person's name will be added to the end
 L["GS_GSDingMessages_name"] = "Customize Ding aka leveled messages."
 
 L["GS_DingMessage1_name"] = "Ding Message 1 (10)"
-L["GS_DingMessage1_desc"] = "Welcome Message 1 of 7 used when player reached lvl 10."
+L["GS_DingMessage1_desc"] = "Welcome Message 1 of 9 used when player reached lvl 10."
 
 L["GS_DingMessage2_name"] = "Ding Message 2 (20)"
-L["GS_DingMessage2_desc"] = "Welcome Message 2 of 7 used when player reached lvl 20."
+L["GS_DingMessage2_desc"] = "Welcome Message 2 of 9 used when player reached lvl 20."
 
 L["GS_DingMessage3_name"] = "Ding Message 3 (30)"
-L["GS_DingMessage3_desc"] = "Welcome Message 3 of 7 used when player reached lvl 30."
+L["GS_DingMessage3_desc"] = "Welcome Message 3 of 9 used when player reached lvl 30."
 
 L["GS_DingMessage4_name"] = "Ding Message 4 (40)"
-L["GS_DingMessage4_desc"] = "Welcome Message 4 of 7 used when player reached lvl 40."
+L["GS_DingMessage4_desc"] = "Welcome Message 4 of 9 used when player reached lvl 40."
 
 L["GS_DingMessage5_name"] = "Ding Message 5 (50)"
-L["GS_DingMessage5_desc"] = "Welcome Message 5 of 7 used when player reached lvl 50."
+L["GS_DingMessage5_desc"] = "Welcome Message 5 of 9 used when player reached lvl 50."
 
 L["GS_DingMessage6_name"] = "Ding Message 6 (60)"
-L["GS_DingMessage6_desc"] = "Welcome Message 6 of 7 used when player reached lvl 60."
+L["GS_DingMessage6_desc"] = "Welcome Message 6 of 9 used when player reached lvl 60."
+
+L["GS_DingMessage7_name"] = "Ding Message 7 (70)"
+L["GS_DingMessage7_desc"] = "Welcome Message 7 of 9 used when player reached lvl 70."
+
+L["GS_DingMessage8_name"] = "Ding Message 8 (80)"
+L["GS_DingMessage8_desc"] = "Welcome Message 8 of 9 used when player reached lvl 80."
+
+L["GS_DingMessage9_name"] = "Ding Message 9 (90)"
+L["GS_DingMessage9_desc"] = "Welcome Message 9 of 9 used when player reached lvl 90."
 
 --For Future Use------------------------------------------------------------------------
--- L["GS_DingMessage7_name"] = "Ding Message 7 ()"
--- L["GS_DingMessage7_desc"] = "Welcome Message 7 of 8 used when player reached lvl 10."
-
--- L["GS_DingMessage8_name"] = "Ding Message 8 ()"
--- L["GS_DingMessage8_desc"] = "Welcome Message 8 of 9 used when player reached lvl 10."
-
--- L["GS_DingMessage9_name"] = "Ding Message 9 ()"
--- L["GS_DingMessage9_desc"] = "Welcome Message 9 of 10 used when player reached lvl 10."
 
 -- L["GS_DingMessage10_name"] = "Ding Message 10 ()"
 -- L["GS_DingMessage10_desc"] = "Welcome Message 10 of 11 used when player reached lvl 10."
